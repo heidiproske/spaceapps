@@ -14,3 +14,11 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+
+#define KEY_CITY @"city"
+#define KEY_COUNTRY @"country"
+#define KEY_TIMEZONE @"timeZone"
+#define KEY_IMAGE @"image"
