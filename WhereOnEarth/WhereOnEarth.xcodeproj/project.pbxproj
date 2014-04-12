@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		91931A0E18F9893900188F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A0D18F9893900188F5A /* Foundation.framework */; };
+		91931A1018F9893900188F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A0F18F9893900188F5A /* CoreGraphics.framework */; };
+		91931A1218F9893900188F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A1118F9893900188F5A /* UIKit.framework */; };
+		91931A1818F9893900188F5A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91931A1618F9893900188F5A /* InfoPlist.strings */; };
+		91931A1A18F9893900188F5A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A1918F9893900188F5A /* main.m */; };
+		91931A1E18F9893900188F5A /* WOEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A1D18F9893900188F5A /* WOEAppDelegate.m */; };
+		91931A2018F9893900188F5A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91931A1F18F9893900188F5A /* Images.xcassets */; };
+		91931A2718F9893900188F5A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A2618F9893900188F5A /* XCTest.framework */; };
+		91931A2818F9893900188F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A0D18F9893900188F5A /* Foundation.framework */; };
+		91931A2918F9893900188F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A1118F9893900188F5A /* UIKit.framework */; };
+		91931A3118F9893900188F5A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91931A2F18F9893900188F5A /* InfoPlist.strings */; };
+		91931A3318F9893900188F5A /* WhereOnEarthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A3218F9893900188F5A /* WhereOnEarthTests.m */; };
+		91931A4018F98BB700188F5A /* WOEQuizVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A3F18F98BB700188F5A /* WOEQuizVC.m */; };
+		91931A4318F98C7600188F5A /* WOESatelliteImageryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A4218F98C7600188F5A /* WOESatelliteImageryRequest.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		91931A2A18F9893900188F5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91931A0218F9893900188F5A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91931A0918F9893900188F5A;
+			remoteInfo = WhereOnEarth;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		91931A0A18F9893900188F5A /* WhereOnEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereOnEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		91931A0D18F9893900188F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		91931A0F18F9893900188F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		91931A1118F9893900188F5A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		91931A1518F9893900188F5A /* WhereOnEarth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WhereOnEarth-Info.plist"; sourceTree = "<group>"; };
+		91931A1718F9893900188F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		91931A1918F9893900188F5A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		91931A1B18F9893900188F5A /* WhereOnEarth-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WhereOnEarth-Prefix.pch"; sourceTree = "<group>"; };
+		91931A1C18F9893900188F5A /* WOEAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WOEAppDelegate.h; sourceTree = "<group>"; };
+		91931A1D18F9893900188F5A /* WOEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WOEAppDelegate.m; sourceTree = "<group>"; };
+		91931A1F18F9893900188F5A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		91931A2518F9893900188F5A /* WhereOnEarthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhereOnEarthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91931A2618F9893900188F5A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		91931A2E18F9893900188F5A /* WhereOnEarthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WhereOnEarthTests-Info.plist"; sourceTree = "<group>"; };
+		91931A3018F9893900188F5A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		91931A3218F9893900188F5A /* WhereOnEarthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhereOnEarthTests.m; sourceTree = "<group>"; };
+		91931A3E18F98BB700188F5A /* WOEQuizVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOEQuizVC.h; sourceTree = "<group>"; };
+		91931A3F18F98BB700188F5A /* WOEQuizVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOEQuizVC.m; sourceTree = "<group>"; };
+		91931A4118F98C7600188F5A /* WOESatelliteImageryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOESatelliteImageryRequest.h; sourceTree = "<group>"; };
+		91931A4218F98C7600188F5A /* WOESatelliteImageryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOESatelliteImageryRequest.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		91931A0718F9893900188F5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91931A1018F9893900188F5A /* CoreGraphics.framework in Frameworks */,
+				91931A1218F9893900188F5A /* UIKit.framework in Frameworks */,
+				91931A0E18F9893900188F5A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91931A2218F9893900188F5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91931A2718F9893900188F5A /* XCTest.framework in Frameworks */,
+				91931A2918F9893900188F5A /* UIKit.framework in Frameworks */,
+				91931A2818F9893900188F5A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		91931A0118F9893900188F5A = {
+			isa = PBXGroup;
+			children = (
+				91931A1318F9893900188F5A /* WhereOnEarth */,
+				91931A2C18F9893900188F5A /* WhereOnEarthTests */,
+				91931A0C18F9893900188F5A /* Frameworks */,
+				91931A0B18F9893900188F5A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		91931A0B18F9893900188F5A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				91931A0A18F9893900188F5A /* WhereOnEarth.app */,
+				91931A2518F9893900188F5A /* WhereOnEarthTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		91931A0C18F9893900188F5A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				91931A0D18F9893900188F5A /* Foundation.framework */,
+				91931A0F18F9893900188F5A /* CoreGraphics.framework */,
+				91931A1118F9893900188F5A /* UIKit.framework */,
+				91931A2618F9893900188F5A /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		91931A1318F9893900188F5A /* WhereOnEarth */ = {
+			isa = PBXGroup;
+			children = (
+				91931A3D18F98BA000188F5A /* Random */,
+				91931A3C18F9899600188F5A /* Controllers */,
+				91931A1C18F9893900188F5A /* WOEAppDelegate.h */,
+				91931A1D18F9893900188F5A /* WOEAppDelegate.m */,
+				91931A1F18F9893900188F5A /* Images.xcassets */,
+				91931A1418F9893900188F5A /* Supporting Files */,
+			);
+			path = WhereOnEarth;
+			sourceTree = "<group>";
+		};
+		91931A1418F9893900188F5A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				91931A1518F9893900188F5A /* WhereOnEarth-Info.plist */,
+				91931A1618F9893900188F5A /* InfoPlist.strings */,
+				91931A1918F9893900188F5A /* main.m */,
+				91931A1B18F9893900188F5A /* WhereOnEarth-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		91931A2C18F9893900188F5A /* WhereOnEarthTests */ = {
+			isa = PBXGroup;
+			children = (
+				91931A3218F9893900188F5A /* WhereOnEarthTests.m */,
+				91931A2D18F9893900188F5A /* Supporting Files */,
+			);
+			path = WhereOnEarthTests;
+			sourceTree = "<group>";
+		};
+		91931A2D18F9893900188F5A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				91931A2E18F9893900188F5A /* WhereOnEarthTests-Info.plist */,
+				91931A2F18F9893900188F5A /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		91931A3C18F9899600188F5A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				91931A3E18F98BB700188F5A /* WOEQuizVC.h */,
+				91931A3F18F98BB700188F5A /* WOEQuizVC.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		91931A3D18F98BA000188F5A /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				91931A4118F98C7600188F5A /* WOESatelliteImageryRequest.h */,
+				91931A4218F98C7600188F5A /* WOESatelliteImageryRequest.m */,
+			);
+			name = Random;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		91931A0918F9893900188F5A /* WhereOnEarth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91931A3618F9893900188F5A /* Build configuration list for PBXNativeTarget "WhereOnEarth" */;
+			buildPhases = (
+				91931A0618F9893900188F5A /* Sources */,
+				91931A0718F9893900188F5A /* Frameworks */,
+				91931A0818F9893900188F5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhereOnEarth;
+			productName = WhereOnEarth;
+			productReference = 91931A0A18F9893900188F5A /* WhereOnEarth.app */;
+			productType = "com.apple.product-type.application";
+		};
+		91931A2418F9893900188F5A /* WhereOnEarthTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91931A3918F9893900188F5A /* Build configuration list for PBXNativeTarget "WhereOnEarthTests" */;
+			buildPhases = (
+				91931A2118F9893900188F5A /* Sources */,
+				91931A2218F9893900188F5A /* Frameworks */,
+				91931A2318F9893900188F5A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91931A2B18F9893900188F5A /* PBXTargetDependency */,
+			);
+			name = WhereOnEarthTests;
+			productName = WhereOnEarthTests;
+			productReference = 91931A2518F9893900188F5A /* WhereOnEarthTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		91931A0218F9893900188F5A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = WOE;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Heidi Proske";
+				TargetAttributes = {
+					91931A2418F9893900188F5A = {
+						TestTargetID = 91931A0918F9893900188F5A;
+					};
+				};
+			};
+			buildConfigurationList = 91931A0518F9893900188F5A /* Build configuration list for PBXProject "WhereOnEarth" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 91931A0118F9893900188F5A;
+			productRefGroup = 91931A0B18F9893900188F5A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				91931A0918F9893900188F5A /* WhereOnEarth */,
+				91931A2418F9893900188F5A /* WhereOnEarthTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		91931A0818F9893900188F5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91931A1818F9893900188F5A /* InfoPlist.strings in Resources */,
+				91931A2018F9893900188F5A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91931A2318F9893900188F5A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91931A3118F9893900188F5A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		91931A0618F9893900188F5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91931A4318F98C7600188F5A /* WOESatelliteImageryRequest.m in Sources */,
+				91931A4018F98BB700188F5A /* WOEQuizVC.m in Sources */,
+				91931A1E18F9893900188F5A /* WOEAppDelegate.m in Sources */,
+				91931A1A18F9893900188F5A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91931A2118F9893900188F5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91931A3318F9893900188F5A /* WhereOnEarthTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		91931A2B18F9893900188F5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91931A0918F9893900188F5A /* WhereOnEarth */;
+			targetProxy = 91931A2A18F9893900188F5A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		91931A1618F9893900188F5A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91931A1718F9893900188F5A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		91931A2F18F9893900188F5A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91931A3018F9893900188F5A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		91931A3418F9893900188F5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		91931A3518F9893900188F5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		91931A3718F9893900188F5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WhereOnEarth/WhereOnEarth-Prefix.pch";
+				INFOPLIST_FILE = "WhereOnEarth/WhereOnEarth-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		91931A3818F9893900188F5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WhereOnEarth/WhereOnEarth-Prefix.pch";
+				INFOPLIST_FILE = "WhereOnEarth/WhereOnEarth-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		91931A3A18F9893900188F5A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WhereOnEarth.app/WhereOnEarth";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WhereOnEarth/WhereOnEarth-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "WhereOnEarthTests/WhereOnEarthTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		91931A3B18F9893900188F5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/WhereOnEarth.app/WhereOnEarth";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WhereOnEarth/WhereOnEarth-Prefix.pch";
+				INFOPLIST_FILE = "WhereOnEarthTests/WhereOnEarthTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		91931A0518F9893900188F5A /* Build configuration list for PBXProject "WhereOnEarth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91931A3418F9893900188F5A /* Debug */,
+				91931A3518F9893900188F5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		91931A3618F9893900188F5A /* Build configuration list for PBXNativeTarget "WhereOnEarth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91931A3718F9893900188F5A /* Debug */,
+				91931A3818F9893900188F5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		91931A3918F9893900188F5A /* Build configuration list for PBXNativeTarget "WhereOnEarthTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91931A3A18F9893900188F5A /* Debug */,
+				91931A3B18F9893900188F5A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 91931A0218F9893900188F5A /* Project object */;
+}
