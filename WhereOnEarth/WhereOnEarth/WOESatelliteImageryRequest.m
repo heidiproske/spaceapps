@@ -56,9 +56,9 @@
 + (UIImage *)getImageForCityWithLatitude:(NSString *)latitude AndLongitude:(NSString *)longitude
 {
     // E.g. URL http://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=400x400&sensor=false
-    NSString *urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?center=%@,%@&zoom=12&size=400x400&sensor=false",latitude, longitude];
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?center=%@,%@&zoom=10&size=300x300&sensor=false&maptype=satellite",latitude, longitude];
     
-    NSLog(@"Getting image from %@",urlString);
+//    NSLog(@"Getting image from %@",urlString);
     NSURL* imageURL = [NSURL URLWithString:urlString];
     NSData* imageData = [NSData dataWithContentsOfURL:imageURL];
     return [UIImage imageWithData:imageData];
