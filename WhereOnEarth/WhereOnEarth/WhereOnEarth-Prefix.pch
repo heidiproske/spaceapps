@@ -27,5 +27,6 @@
 
 // Looked up color with http://uicolor.org/
 #define COLOR_GRASS [UIColor colorWithRed:87/255.0f green:147/255.0f blue:73/255.0f alpha:1.0f]
+#define COLOR_SKY_BLUE [UIColor colorWithRed:99/255.0f green:188/255.0f blue:252/255.0f alpha:1.0f]
 
 #define ANSWER_BUTTON_COLOR [UIColor grayColor]

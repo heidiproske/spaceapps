@@ -39,7 +39,7 @@
         // Prepare for Quiz
         //
         cities = [WOESatelliteImageryRequest populateCities];
-        [self shuffleQuizData];
+        [self shuffleQuizData:cities];
         NSLog(@"We have info about %d cities, and %d answerOptionButtons", (int)[cities count], (int)[answerOptionButtons count]);
         
         [self playGame];
@@ -89,7 +89,7 @@
     int yHalfway = SCREEN_HEIGHT / 2;
     
     quizView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    quizView.backgroundColor = [UIColor whiteColor];
+    quizView.backgroundColor = [UIColor lightGrayColor];
     
     //
     // Spaceship window frame
@@ -183,54 +183,34 @@
     //
     // Now populate potential answers
     //
-    NSMutableArray* usedCityIndexes = [@[] mutableCopy];
-    
     int correctIndex = arc4random_uniform([cities count]);
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[correctIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
-    usedCityIndexes[[usedCityIndexes count]] = [NSNumber numberWithInt:correctIndex];
+    
+    NSMutableArray* redHerringAnswers = [NSMutableArray arrayWithArray:cities];
+    [redHerringAnswers removeObject:cities[currentQuestion]]; // get rid of current answers
+    [self shuffleQuizData:redHerringAnswers];
     
 //    NSLog(@"Storing correct answer %@ on button %d", )
-    NSLog(@"At start usedCityIndexes=%@, need to generate %d values", usedCityIndexes, [answerOptionButtons count]-[usedCityIndexes count]);
+//    NSLog(@"At start usedCityIndexes=%@, need to generate %d values", usedCityIndexes, [answerOptionButtons count]-[usedCityIndexes count]);
 
+    int redHerringIndex = 0;
     for (int i=0; i<[answerOptionButtons count]; i++)
     {
         if (i != correctIndex) // don't want to overwrite a button's text if it's already associated
         {
-            
             UIButton* currentButton = answerOptionButtons[i];
-            NSString* currentTitle = [currentButton titleForState:UIControlStateNormal];
-            
-            NSLog(@"Considering button %d whose title is '%@'", i, currentTitle);
-            
-            while ((currentTitle == nil) || ([currentTitle isEqualToString:@""] == YES))
-            {
-                // need to populate the other answer options with red herrings
-                
-                NSNumber* randomIndex = [NSNumber numberWithInt:arc4random_uniform([cities count])];
-                NSLog(@"Generated random city index %@ to put on an empty button %d", randomIndex, i);
-                if (![usedCityIndexes containsObject:randomIndex])
-                {
-                    NSString* newTitle = cities[[randomIndex intValue]][KEY_CITY];
-                    usedCityIndexes[[usedCityIndexes count]] = randomIndex;
-                    [currentButton setTitle:newTitle forState:UIControlStateNormal];
-                    //update variable for while loop condition
-                    currentTitle = [currentButton titleForState:UIControlStateNormal];
-                    
-                    NSLog(@"Updating button %d to set title to %@, updated indexOfUsedCities to include %@", i, newTitle, randomIndex);
-                }
-//                else
-//                {
-//                    NSLog(@"apparently usedCityIndexes %@ already contains generated index %@", usedCityIndexes, randomIndex);
-//                }
-            }
+            NSLog(@"Considering button %d", i);
+            NSString* newTitle = redHerringAnswers[redHerringIndex++][KEY_CITY];
+            [currentButton setTitle:newTitle forState:UIControlStateNormal];
+            //update variable for while loop condition
+            NSLog(@"Updating button %d to set title to %@", i, newTitle);
         }
- 
-        else
-        {
-            NSLog(@"Button %d contains the correct answer %@ so leaving alone!", correctIndex, cityName);
-        }
+//        else
+//        {
+//            NSLog(@"Button %d contains the correct answer %@ so leaving alone!", correctIndex, cityName);
+//        }
     }
  
 }
@@ -303,7 +283,7 @@
 - (void)showLandedView
 {
     landedView = [[UIView alloc] initWithFrame:self.view.frame];
-    landedView.backgroundColor = [UIColor whiteColor];
+    landedView.backgroundColor = COLOR_SKY_BLUE;
     [self.view addSubview:landedView];
     
     CGRect whiteFrame = landedView.frame;
@@ -417,14 +397,14 @@
 
 //TODO look up CGContextAddRect()
 
-- (void)shuffleQuizData
+- (void)shuffleQuizData:(NSMutableArray*)myArray
 {
-    NSUInteger count = [cities count];
+    NSUInteger count = [myArray count];
     for (NSUInteger i = 0; i < count; ++i) {
         //Select a random element between i and end of array to swap with.
         NSInteger nElements = count - i;
         NSInteger n = arc4random_uniform(nElements) + i;
-        [cities exchangeObjectAtIndex:i withObjectAtIndex:n];
+        [myArray exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
 
