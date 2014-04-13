@@ -10,7 +10,7 @@
 
 @implementation WOESatelliteImageryRequest
 
-+ (UIImage*)getImageForCity:(NSString *)cityName InCountry:(NSString*)countryName
++ (NSDictionary*)getImageForCity:(NSString *)cityName InCountry:(NSString*)countryName
 {
     //    NSString* myKey = @"AIzaSyDgXPabFl8HDR87DT6K5ry8rMQxlAD6onU";
     //    With a developer API key
@@ -45,7 +45,11 @@
             NSString* latitude = location[@"lat"];
             NSString* longitude = location[@"lng"];
             
-            return [self getImageForCityWithLatitude:latitude AndLongitude:longitude];
+            NSMutableDictionary* returnResult = [@{} mutableCopy];
+            returnResult[KEY_LATITUDE] = latitude;
+            returnResult[KEY_LONGITUDE] = longitude;
+            returnResult[KEY_IMAGE] = [self getImageForCityWithLatitude:latitude AndLongitude:longitude];
+            return returnResult;
         }
     }
     
@@ -73,7 +77,7 @@
               @{KEY_CITY : @"Durban", KEY_COUNTRY : @"South Africa"},
               @{KEY_CITY : @"New York", KEY_COUNTRY : @"USA"},
               @{KEY_CITY : @"Paris", KEY_COUNTRY : @"France"},
-              //       @{KEY_CITY : @"Hong Kong", KEY_COUNTRY : @"China"},
+              @{KEY_CITY : @"Hong Kong", KEY_COUNTRY : @"China"},
               //       @{KEY_CITY : @"Berlin", KEY_COUNTRY : @"Germany"},
               //       @{KEY_CITY : @"New York", KEY_COUNTRY : @"USA"},
               //       @{KEY_CITY : @"Miami", KEY_COUNTRY : @"USA"},

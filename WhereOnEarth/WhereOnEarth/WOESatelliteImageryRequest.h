@@ -10,6 +10,8 @@
 
 @interface WOESatelliteImageryRequest : NSObject
 
-+ (UIImage*)getImageForCity:(NSString *)cityName InCountry:(NSString*)countryName;
 + (NSMutableArray*)populateCities;
+
++ (NSDictionary*)getImageForCity:(NSString *)cityName InCountry:(NSString*)countryName;
+
 @end

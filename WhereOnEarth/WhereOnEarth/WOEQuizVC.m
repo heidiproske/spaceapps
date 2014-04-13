@@ -61,7 +61,17 @@
 - (void)clickedHint
 {
     NSLog(@"Show hint for city %d", currentQuestion);
-    NSLog(@"Show hint for cities %d", currentQuestion);
+    
+    NSDictionary* currentCity = cities[currentQuestion];
+    
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"Hint"
+                          message:[NSString stringWithFormat:@"Latitude %@\nLongitude %@", currentCity[KEY_LATITUDE], currentCity[KEY_LONGITUDE]]
+                          delegate: nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil];
+    [self.view addSubview:alert];
+    [alert show];
 }
 
 - (void)checkAnswer:(UIButton*)sender
@@ -99,6 +109,17 @@
     spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize)/2, padding   , spaceWindowSize, spaceWindowSize);
     
     //
+    // Cockpit
+    //
+//    UIImage* cockpitImage = [UIImage imageNamed:@"cockpit"];
+//    float ratio = (SCREEN_WIDTH * 0.0115);
+//    float cockpitHeight = cockpitImage.size.height / ratio;
+//    float cockpitWidth = cockpitImage.size.width / ratio;
+//    UIImageView* cockpitView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cockpitWidth, cockpitHeight)];
+//    cockpitView.image = cockpitImage;
+//    [quizView addSubview:cockpitView];
+    
+    //
     // Satellite image
     //
     satelliteImage = [[UIImageView alloc] initWithFrame:CGRectMake(spaceWindowOutline.frame.origin.x + 10, spaceWindowOutline.frame.origin.y + 10, spaceWindowOutline.frame.size.width - 20, spaceWindowOutline.frame.size.height - 20)];
@@ -121,7 +142,7 @@
     [hintButton setTitle:@"Hint" forState:UIControlStateNormal];
     hintButton.titleLabel.textColor = [UIColor whiteColor];
     hintButton.layer.cornerRadius = 10; //hintButton.frame.size.width / 2.0;
-    [hintButton addTarget:self action:@selector(showNextQuestion) forControlEvents:UIControlEventTouchUpInside];
+    [hintButton addTarget:self action:@selector(clickedHint) forControlEvents:UIControlEventTouchUpInside];
     [quizView addSubview:hintButton];
     
     //
@@ -140,6 +161,8 @@
         //           NSLog(@"Drawing button %d at (%d, %d)", i+1, padding, yPos);
         UIButton* answerOption = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-widthOfAnswerOption)/2, yPos, widthOfAnswerOption, heightOfAnswerOption)];
         answerOption.tag = 1;
+//        UIImage* buttonShape = [UIImage imageNamed:[NSString stringWithFormat:@"answer%d",(i+1)]];
+//        [answerOption setImage:buttonShape forState:UIControlStateNormal];
         answerOption.backgroundColor = ANSWER_BUTTON_COLOR;
         answerOption.layer.cornerRadius = 6; //answerOption.frame.size.width / 2.0;
         [answerOption addTarget:self action:@selector(checkAnswer:) forControlEvents:UIControlEventTouchUpInside];
@@ -167,11 +190,17 @@
     //
     // Update satellite image for current city
     //
-    NSDictionary* cityInfo = cities[currentQuestion];
-    NSString* cityName = [cityInfo objectForKey:KEY_CITY];
-    NSString* countryName = [cityInfo objectForKey:KEY_COUNTRY];
+    NSMutableDictionary* cityInfo = cities[currentQuestion];
+    NSString* cityName = cityInfo[KEY_CITY];
+    NSString* countryName = cityInfo[KEY_COUNTRY];
 //    NSLog(@"current city %@, %@", cityName, countryName);
-    UIImage* cityImage = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
+    
+    NSDictionary* returnResult = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
+
+    cityInfo[KEY_LATITUDE] = returnResult[KEY_LATITUDE];
+    cityInfo[KEY_LONGITUDE] = returnResult[KEY_LONGITUDE];
+//    cityInfo[KEY_IMAGE] = returnResult[KEY_IMAGE];
+    UIImage* cityImage = returnResult[KEY_IMAGE];
     satelliteImage.image = cityImage;
 
     // Clear out old answers
@@ -212,7 +241,6 @@
 //            NSLog(@"Button %d contains the correct answer %@ so leaving alone!", correctIndex, cityName);
 //        }
     }
- 
 }
 
 - (void)showStart
@@ -224,7 +252,7 @@
     UILabel* gameName = [[UILabel alloc] initWithFrame:CGRectMake(padding, 2*padding, splashView.frame.size.width - 2*padding, 3*padding)];
     gameName.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:30];
     gameName.textColor = [UIColor whiteColor];
-    gameName.text = @"ASTRID LANDS!";
+    gameName.text = @"ASTRID'S LANDING!";
     gameName.textAlignment = UITextAlignmentCenter;
     [splashView addSubview:gameName];
     
