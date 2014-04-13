@@ -14,6 +14,7 @@
     UIView* splashView;
     UIView* quizView;
     UIView* endView;
+    UIView* landedView;
     
     UIImageView* satelliteImage;
     NSMutableArray* answerOptionButtons;
@@ -65,6 +66,21 @@
 - (void)checkAnswer:(UIButton*)sender
 {
     NSLog(@"answer %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
+    // Reset all button background colors to default
+    for (UIButton* currentButton in answerOptionButtons)
+    {
+        currentButton.backgroundColor = ANSWER_BUTTON_COLOR;
+    }
+
+    NSLog(@"answer button %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
+    if ([sender.titleLabel.text isEqualToString:cities[currentQuestion][KEY_CITY]])
+    {
+        [self showLandedView];
+    }
+    else
+    {
+        sender.backgroundColor = [UIColor redColor];
+    }
 }
 
 - (void)createQuiz
@@ -81,7 +97,7 @@
     int spaceWindowSize = yHalfway; // - 2*padding;
     UIImageView* spaceWindowOutline = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"window_gray"]];
     spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize)/2, padding   , spaceWindowSize, spaceWindowSize);
-
+    
     //
     // Satellite image
     //
@@ -115,7 +131,7 @@
     int heightOfAnswerOption = (spaceForAnswerButtons - (numberAnswerOptions+3)*padding) / numberAnswerOptions;
     int widthOfAnswerOption = SCREEN_WIDTH - 8*padding;
     
-    //        NSLog(@"heightOfAnswerOption = %d, halfway Y %d, width = %f, height = %f", heightOfAnswerOption, yHalfway, SCREEN_WIDTH, SCREEN_HEIGHT);
+    // NSLog(@"heightOfAnswerOption = %d, halfway Y %d, width = %f, height = %f", heightOfAnswerOption, yHalfway, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     answerOptionButtons = [@[] mutableCopy];
     for (int i=0; i<numberAnswerOptions; i++)
@@ -124,7 +140,7 @@
         //           NSLog(@"Drawing button %d at (%d, %d)", i+1, padding, yPos);
         UIButton* answerOption = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-widthOfAnswerOption)/2, yPos, widthOfAnswerOption, heightOfAnswerOption)];
         answerOption.tag = 1;
-        answerOption.backgroundColor = [UIColor grayColor];
+        answerOption.backgroundColor = ANSWER_BUTTON_COLOR;
         answerOption.layer.cornerRadius = 6; //answerOption.frame.size.width / 2.0;
         [answerOption addTarget:self action:@selector(checkAnswer:) forControlEvents:UIControlEventTouchUpInside];
         [quizView addSubview:answerOption];
@@ -135,12 +151,16 @@
 
 - (void)showNextQuestion
 {
+    [landedView removeFromSuperview];
+    
     if (++currentQuestion >= [cities count])
     {
         NSLog(@"you were quizzed on all %d cities!", [cities count]);
         
         [self createEndView];
-        [self replaceView:quizView WithOtherView:endView];
+        [self fadeInView:endView];
+        [quizView removeFromSuperview];
+        
         return;
     }
     
@@ -158,6 +178,7 @@
     NSLog(@"updated image?!");
     
     int randomIndex = 0;
+    int randomIndex = arc4random_uniform([cities count]);;
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[randomIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
@@ -183,7 +204,6 @@
     gameName.text = @"ASTRID'S LANDING!";
     gameName.textAlignment = UITextAlignmentCenter;
     [splashView addSubview:gameName];
-    
     
     UIImage* inFlightImage = [UIImage imageNamed:@"inflight"];
     float ratio = (SCREEN_WIDTH * 0.017);
@@ -237,6 +257,66 @@
     [endView addSubview:playAgainButton];
 }
 
+- (void)showLandedView
+{
+    landedView = [[UIView alloc] initWithFrame:self.view.frame];
+    landedView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:landedView];
+    
+    CGRect whiteFrame = landedView.frame;
+    UILabel* congratsLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, whiteFrame.size.width - 2*padding, 2*padding)];
+    congratsLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:22];
+    congratsLabel.textColor = [UIColor blackColor];
+    congratsLabel.text = @"Great Landing!";
+    congratsLabel.textAlignment = UITextAlignmentCenter;
+    [landedView addSubview:congratsLabel];
+    
+    UIView* greenGrass = [[UIView alloc] initWithFrame:CGRectMake(whiteFrame.origin.x, SCREEN_HEIGHT - 3*padding, whiteFrame.size.width, 3*padding)];
+    greenGrass.backgroundColor = COLOR_GRASS;
+    [landedView addSubview:greenGrass];
+    
+    UIView* blackBorder = [[UIView alloc] initWithFrame:CGRectMake(
+           whiteFrame.origin.x + padding/2,
+           congratsLabel.frame.origin.y + congratsLabel.frame.size.height + padding/2,
+           whiteFrame.size.width - padding,
+           whiteFrame.size.height - congratsLabel.frame.origin.y - congratsLabel.frame.size.height - 5*padding)];
+    blackBorder.backgroundColor = [UIColor blackColor];
+    [landedView addSubview:blackBorder];
+    
+    UIButton* nextFlightBtn = [[UIButton alloc] initWithFrame:CGRectMake(2*padding, greenGrass.frame.origin.y-1.2*padding, 100, 35)];
+    nextFlightBtn.backgroundColor = [UIColor redColor];
+    nextFlightBtn.layer.cornerRadius = 10; //nextFlightBtn.frame.size.width / 2.0;
+    nextFlightBtn.titleLabel.textColor = [UIColor whiteColor]; //TODO his screengrab was black
+    if (currentQuestion < [cities count] - 1)
+    {
+        [nextFlightBtn setTitle:@"Next Flight" forState:UIControlStateNormal];
+    } else
+    {
+        [nextFlightBtn setTitle:@"Finish" forState:UIControlStateNormal];
+    }
+    [nextFlightBtn addTarget:self action:@selector(showNextQuestion) forControlEvents:UIControlEventTouchUpInside];
+    [landedView addSubview:nextFlightBtn];
+    
+    int lineWidth = 3;
+    UIView* whiteScreenForData = [[UIView alloc] initWithFrame:CGRectMake(
+          blackBorder.frame.origin.x + lineWidth,
+          blackBorder.frame.origin.y + lineWidth,
+          blackBorder.frame.size.width - 2*lineWidth,
+          blackBorder.frame.size.height - 2*lineWidth)];
+    
+    whiteScreenForData.backgroundColor = [UIColor whiteColor];
+    [landedView addSubview:whiteScreenForData];
+    
+    // Add the girl in bottom right on top of all other views
+    UIImage* girl = [UIImage imageNamed:@"Astrid"];
+    float ratio = (SCREEN_WIDTH * 0.024);
+    float girlHeight = girl.size.height / ratio;
+    float girlWidth = girl.size.width / ratio;
+    UIImageView* cornerGirl = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - girlWidth, SCREEN_HEIGHT - girlHeight, girlWidth, girlHeight)];
+    cornerGirl.image = girl;
+    [self.view addSubview:cornerGirl];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -266,16 +346,16 @@
     {
         [timer invalidate];
         [self createQuiz];
-        [self replaceView:splashView WithOtherView:quizView];
+        [splashView removeFromSuperview];
+        [self fadeInView:quizView];
         [self showNextQuestion];
     }
 }
 
--(void)replaceView:(UIView*)oldView WithOtherView:(UIView*)newView
+-(void)fadeInView:(UIView*)newView
 {
     newView.alpha = 0;
     [self.view addSubview:newView];
-    [oldView removeFromSuperview];
     
     [UIView animateWithDuration:0.2 animations:^{ //TODO does this actually look better? change the speed?
         newView.alpha = 1;
