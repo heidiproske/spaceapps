@@ -165,24 +165,18 @@
     }
     
     NSDictionary* cityInfo = cities[currentQuestion];
-    NSLog(@"showNextQuestion #%d", currentQuestion);
-    
     NSString* cityName = [cityInfo objectForKey:KEY_CITY];
     NSString* countryName = [cityInfo objectForKey:KEY_COUNTRY];
-    
-    NSLog(@"current city %@, %@", cityName, countryName);
+//    NSLog(@"current city %@, %@", cityName, countryName);
     
     UIImage* cityImage = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
-    
     satelliteImage.image = cityImage;
-    NSLog(@"updated image?!");
-    
     for (int i=0; i<10; i++){
         NSLog(@"%d", arc4random_uniform([cities count]));
               
     }
-    int randomIndex = arc4random_uniform([cities count]);;
-    UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[randomIndex]);
+    int correctIndex = arc4random_uniform([cities count]);
+    UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[correctIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
     
@@ -204,7 +198,7 @@
     UILabel* gameName = [[UILabel alloc] initWithFrame:CGRectMake(padding, 2*padding, splashView.frame.size.width - 2*padding, 3*padding)];
     gameName.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:30];
     gameName.textColor = [UIColor whiteColor];
-    gameName.text = @"ASTRID'S LANDING!";
+    gameName.text = @"ASTRID LANDS!";
     gameName.textAlignment = UITextAlignmentCenter;
     [splashView addSubview:gameName];
     
@@ -286,7 +280,7 @@
     blackBorder.backgroundColor = [UIColor blackColor];
     [landedView addSubview:blackBorder];
     
-    UIButton* nextFlightBtn = [[UIButton alloc] initWithFrame:CGRectMake(2*padding, greenGrass.frame.origin.y-1.2*padding, 100, 35)];
+    UIButton* nextFlightBtn = [[UIButton alloc] initWithFrame:CGRectMake(padding/2, greenGrass.frame.origin.y-1.2*padding, 100, 35)];
     nextFlightBtn.backgroundColor = [UIColor redColor];
     nextFlightBtn.layer.cornerRadius = 10; //nextFlightBtn.frame.size.width / 2.0;
     nextFlightBtn.titleLabel.textColor = [UIColor whiteColor]; //TODO his screengrab was black
