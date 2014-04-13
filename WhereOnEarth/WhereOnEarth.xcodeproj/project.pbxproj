@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9108303118FA3E8300AF65B7 /* inflight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9108303018FA3E8300AF65B7 /* inflight.png */; };
 		91931A0E18F9893900188F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A0D18F9893900188F5A /* Foundation.framework */; };
 		91931A1018F9893900188F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A0F18F9893900188F5A /* CoreGraphics.framework */; };
 		91931A1218F9893900188F5A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A1118F9893900188F5A /* UIKit.framework */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9108303018FA3E8300AF65B7 /* inflight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inflight.png; sourceTree = "<group>"; };
 		91931A0A18F9893900188F5A /* WhereOnEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereOnEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91931A0D18F9893900188F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		91931A0F18F9893900188F5A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -176,6 +178,7 @@
 		91931A4718F9A4FF00188F5A /* images */ = {
 			isa = PBXGroup;
 			children = (
+				9108303018FA3E8300AF65B7 /* inflight.png */,
 				91931A5418F9E48F00188F5A /* window_gray.png */,
 			);
 			name = images;
@@ -259,6 +262,7 @@
 			files = (
 				91931A1818F9893900188F5A /* InfoPlist.strings in Resources */,
 				91931A5518F9E48F00188F5A /* window_gray.png in Resources */,
+				9108303118FA3E8300AF65B7 /* inflight.png in Resources */,
 				91931A2018F9893900188F5A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

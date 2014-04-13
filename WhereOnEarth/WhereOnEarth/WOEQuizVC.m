@@ -11,11 +11,16 @@
 
 @implementation WOEQuizVC
 {
+    UIView* splashView;
     UIImageView* satelliteImage;
     NSMutableArray* answerOptionButtons;
     NSMutableArray* cities;
     
     int currentQuestion;
+    int padding;
+    UILabel* blastOffTimeLabel;
+    NSTimer* timer;
+    int currSeconds;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -23,6 +28,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        padding = 10;
+        
         //
         // Prepare for Quiz
         //
@@ -30,6 +37,8 @@
         [self shuffleQuizData];
         NSLog(@"We have info about %d cities, and %d answerOptionButtons", (int)[cities count], (int)[answerOptionButtons count]);
         currentQuestion = -1;
+        
+        [self showStart];
     }
     return self;
 }
@@ -47,7 +56,6 @@
 
 - (void)startQuiz
 {
-    int padding = 10;
     int numberAnswerOptions = 4;
     int yHalfway = SCREEN_HEIGHT / 2;
     
@@ -141,7 +149,38 @@
     //    }
     //    NSLog(@"answer %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
     //    // Do any additional setup after loading the view.
+}
+
+- (void)showStart
+{
+    splashView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    splashView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:splashView];
     
+    UILabel* gameName = [[UILabel alloc] initWithFrame:CGRectMake(padding, 2*padding, splashView.frame.size.width - 2*padding, 3*padding)];
+    gameName.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:30];
+    gameName.textColor = [UIColor whiteColor];
+    gameName.text = @"ASTRID'S LANDING!";
+    gameName.textAlignment = UITextAlignmentCenter;
+    [splashView addSubview:gameName];
+    
+    
+    UIImage* inFlightImage = [UIImage imageNamed:@"inflight"];
+    float ratio = (SCREEN_WIDTH * 0.017);
+    float inFlightHeight = inFlightImage.size.height / ratio;
+    float inFlightWidth = inFlightImage.size.width / ratio;
+    UIImageView* inFlightView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 85, inFlightWidth, inFlightHeight)];
+    inFlightView.image = inFlightImage;
+    [splashView addSubview:inFlightView];
+    
+    blastOffTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, SCREEN_HEIGHT-5*padding, splashView.frame.size.width - 2*padding, 3*padding)];
+    blastOffTimeLabel.textColor = [UIColor whiteColor];
+    blastOffTimeLabel.textAlignment = UITextAlignmentCenter;
+    blastOffTimeLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:22];
+    currSeconds=3;
+    [splashView addSubview:blastOffTimeLabel];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blastOffTimerFired) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidLoad
@@ -160,6 +199,29 @@
 - (BOOL) prefersStatusBarHidden
 {
     return YES;
+}
+
+-(void)blastOffTimerFired
+{
+    NSLog(@"Timer fired");
+    if(currSeconds>=0)
+    {
+        if(currSeconds==0)
+        {
+            blastOffTimeLabel.text = [NSString stringWithFormat:@"BLAST OFF"];
+        }
+        else
+        {
+            blastOffTimeLabel.text = [NSString stringWithFormat:@"%d", currSeconds];
+        }
+        currSeconds-=1;
+    }
+    else
+    {
+        [splashView removeFromSuperview];
+        [self startQuiz];
+        [timer invalidate];
+    }
 }
 
 - (void)shuffleQuizData
