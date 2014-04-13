@@ -179,11 +179,57 @@
     {
         [answerOptionButtons[i] setTitle:@"" forState:UIControlStateNormal];
     }
+    
+    //
+    // Now populate potential answers
+    //
+    NSMutableArray* usedCityIndexes = [@[] mutableCopy];
+    
     int correctIndex = arc4random_uniform([cities count]);
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[correctIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
+    usedCityIndexes[[usedCityIndexes count]] = [NSNumber numberWithInt:correctIndex];
     
+    NSLog(@"At start usedCityIndexes=%@", usedCityIndexes);
+    
+    for (int i=0; i<[answerOptionButtons count]; i++)
+    {
+        if (i != correctIndex) // don't want to overwrite a button's text if it's already associated
+        {
+            
+            UIButton* currentButton = answerOptionButtons[i];
+            NSString* currentTitle = [currentButton titleForState:UIControlStateNormal];
+            
+            NSLog(@"Considering button %d whose title is '%@'", i, currentTitle);
+            
+            while ((currentTitle == nil) || ([currentTitle isEqualToString:@""] == YES))
+            {
+                // need to populate the other answer options with red herrings
+                
+                NSNumber* randomIndex = [NSNumber numberWithInt:arc4random_uniform([cities count])];
+                NSLog(@"Generated random city index %@ to put on an empty button %d", randomIndex, i);
+                if (![usedCityIndexes containsObject:randomIndex])
+                {
+                    NSString* newTitle = cities[[randomIndex intValue]][KEY_CITY];
+                    usedCityIndexes[[usedCityIndexes count]] = randomIndex;
+                    [currentButton setTitle:newTitle forState:UIControlStateNormal];
+                    //update variable for while loop condition
+                    currentTitle = [currentButton titleForState:UIControlStateNormal];
+                    
+                    NSLog(@"Going to set title to %@, updated indexOfUsedCities to include %@", newTitle, randomIndex);
+                }
+                else
+                {
+                    NSLog(@"apparently usedCityIndexes %@ already contains generated index %@", usedCityIndexes, randomIndex);
+                }
+            }
+        }
+//        else
+//        {
+//            NSLog(@"Button %d contains the correct answer %@ so leaving alone!", correctIndex, cityName);
+//        }
+    }
 }
 
 - (void)showStart
