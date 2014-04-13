@@ -7,13 +7,14 @@
 //
 
 #import "WOEQuizVC.h"
+#import "WOESatelliteImageryRequest.h"
 
 @implementation WOEQuizVC
 {
     UIImageView* satelliteImage;
     NSMutableArray* answerOptionButtons;
     NSMutableArray* cities;
-
+    
     int currentQuestion;
 }
 
@@ -45,9 +46,9 @@
         [hintButton setTitle:@"Hint" forState:UIControlStateNormal];
         hintButton.titleLabel.textColor = [UIColor whiteColor];
         hintButton.layer.cornerRadius = 10; //hintButton.frame.size.width / 2.0;
-        [hintButton addTarget:self action:@selector(clickedHint:) forControlEvents:UIControlEventTouchUpInside];
+        [hintButton addTarget:self action:@selector(clickedHint) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:hintButton];
-
+        
         //
         // Answer Option Buttons
         //
@@ -75,28 +76,28 @@
         //
         // Prepare for Quiz
         //
-        cities =
-            [@[
-              @{KEY_CITY : @"Durban", KEY_COUNTRY : @"South Africa", KEY_IMAGE : @"images/durban"},
-              @{KEY_CITY : @"New York", KEY_COUNTRY : @"USA", KEY_IMAGE : @"images/newyork"},
-              @{KEY_CITY : @"Paris", KEY_COUNTRY : @"France", KEY_IMAGE : @"images/paris"},
-              @{KEY_CITY : @"Hong Kong", KEY_COUNTRY : @"China", KEY_IMAGE : @"images/hongkong"}
-              ] mutableCopy];
-            
+        cities = [WOESatelliteImageryRequest populateCities];
         NSLog(@"We have info about %d cities, and %d answerOptionButtons", (int)[cities count], (int)[answerOptionButtons count]);
         currentQuestion = 0;
     }
     return self;
 }
 
+
+- (void)clickedHint
+{
+    NSLog(@"Show hint for city %d", currentQuestion);
+}
+
 - (void)checkAnswer:(UIButton*)sender
 {
-    NSLog(@"answer %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
+    NSLog(@"answer button %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -105,17 +106,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (BOOL) prefersStatusBarHidden
 {

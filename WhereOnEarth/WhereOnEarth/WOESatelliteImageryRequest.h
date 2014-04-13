@@ -10,4 +10,5 @@
 
 @interface WOESatelliteImageryRequest : NSObject
 
++ (NSMutableArray*)populateCities;
 @end
