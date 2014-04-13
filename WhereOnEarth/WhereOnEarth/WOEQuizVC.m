@@ -12,6 +12,7 @@
 @implementation WOEQuizVC
 {
     UIView* splashView;
+    UIView* endView;
     UIImageView* satelliteImage;
     NSMutableArray* answerOptionButtons;
     NSMutableArray* cities;
@@ -36,13 +37,22 @@
         cities = [WOESatelliteImageryRequest populateCities];
         [self shuffleQuizData];
         NSLog(@"We have info about %d cities, and %d answerOptionButtons", (int)[cities count], (int)[answerOptionButtons count]);
-        currentQuestion = -1;
         
-        [self showStart];
+        [self playGame];
     }
     return self;
 }
 
+- (void)playGame
+{
+    if (endView != nil)
+    {
+        NSLog(@"We have a non nil endView");
+        [endView removeFromSuperview];
+    }
+    currentQuestion = -1;
+    [self showStart];
+}
 
 - (void)clickedHint
 {
@@ -188,6 +198,33 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+}
+
+- (void)showEnding
+{
+    endView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.view addSubview:endView];
+    
+    UIImage* theEnd = [UIImage imageNamed:@"ending"];
+    
+    float ratio = (SCREEN_WIDTH * 0.0115);
+    float endHeight = theEnd.size.height / ratio;
+    float endWidth = theEnd.size.width / ratio;
+    
+    UIImageView* endingView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - endWidth, SCREEN_HEIGHT - endHeight, endWidth, endHeight)];
+    endingView.image = theEnd;
+    [endView addSubview:endingView];
+    
+    //
+    // Play Again Button
+    //
+    UIButton* playAgainButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-padding-100, 5*padding, 100, 3*padding)];
+    playAgainButton.backgroundColor = [UIColor redColor];
+    [playAgainButton setTitle:@"Play Again" forState:UIControlStateNormal];
+    playAgainButton.titleLabel.textColor = [UIColor whiteColor];
+    playAgainButton.layer.cornerRadius = 10; //hintButton.frame.size.width / 2.0;
+    [playAgainButton addTarget:self action:@selector(playGame) forControlEvents:UIControlEventTouchUpInside];
+    [endView addSubview:playAgainButton];
 }
 
 - (void)didReceiveMemoryWarning

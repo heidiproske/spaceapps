@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9108302B18FA366C00AF65B7 /* Astrid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9108302A18FA366C00AF65B7 /* Astrid.png */; };
+		9108302F18FA3DAE00AF65B7 /* ending.png in Resources */ = {isa = PBXBuildFile; fileRef = 9108302E18FA3DAE00AF65B7 /* ending.png */; };
 		9108303118FA3E8300AF65B7 /* inflight.png in Resources */ = {isa = PBXBuildFile; fileRef = 9108303018FA3E8300AF65B7 /* inflight.png */; };
 		91931A0E18F9893900188F5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A0D18F9893900188F5A /* Foundation.framework */; };
 		91931A1018F9893900188F5A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91931A0F18F9893900188F5A /* CoreGraphics.framework */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9108302A18FA366C00AF65B7 /* Astrid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Astrid.png; sourceTree = "<group>"; };
+		9108302E18FA3DAE00AF65B7 /* ending.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ending.png; sourceTree = "<group>"; };
 		9108303018FA3E8300AF65B7 /* inflight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inflight.png; sourceTree = "<group>"; };
 		91931A0A18F9893900188F5A /* WhereOnEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereOnEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91931A0D18F9893900188F5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -179,6 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				9108303018FA3E8300AF65B7 /* inflight.png */,
+				9108302E18FA3DAE00AF65B7 /* ending.png */,
+				9108302A18FA366C00AF65B7 /* Astrid.png */,
 				91931A5418F9E48F00188F5A /* window_gray.png */,
 			);
 			name = images;
@@ -261,7 +267,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				91931A1818F9893900188F5A /* InfoPlist.strings in Resources */,
+				9108302F18FA3DAE00AF65B7 /* ending.png in Resources */,
 				91931A5518F9E48F00188F5A /* window_gray.png in Resources */,
+				9108302B18FA366C00AF65B7 /* Astrid.png in Resources */,
 				9108303118FA3E8300AF65B7 /* inflight.png in Resources */,
 				91931A2018F9893900188F5A /* Images.xcassets in Resources */,
 			);
@@ -408,6 +416,7 @@
 				GCC_PREFIX_HEADER = "WhereOnEarth/WhereOnEarth-Prefix.pch";
 				INFOPLIST_FILE = "WhereOnEarth/WhereOnEarth-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -421,6 +430,7 @@
 				GCC_PREFIX_HEADER = "WhereOnEarth/WhereOnEarth-Prefix.pch";
 				INFOPLIST_FILE = "WhereOnEarth/WhereOnEarth-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -484,6 +494,7 @@
 				91931A3818F9893900188F5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		91931A3918F9893900188F5A /* Build configuration list for PBXNativeTarget "WhereOnEarthTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +503,7 @@
 				91931A3B18F9893900188F5A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
