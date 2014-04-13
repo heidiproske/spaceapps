@@ -136,6 +136,9 @@
     if (++currentQuestion >= [cities count])
     {
         NSLog(@"you were quizzed on all %d cities!", [cities count]);
+        
+        [self createEndView];
+        [self replaceView:quizView WithOtherView:endView];
         return;
     }
     
@@ -204,7 +207,7 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)showEnding
+- (void)createEndView
 {
     endView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.view addSubview:endView];
@@ -261,6 +264,7 @@
         [timer invalidate];
         [self createQuiz];
         [self replaceView:splashView WithOtherView:quizView];
+        [self showNextQuestion];
     }
 }
 
