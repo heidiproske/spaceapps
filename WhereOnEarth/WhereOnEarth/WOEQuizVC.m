@@ -14,12 +14,14 @@
     UIView* splashView;
     UIView* quizView;
     UIView* endView;
+    
     UIImageView* satelliteImage;
     NSMutableArray* answerOptionButtons;
     NSMutableArray* cities;
     
     int currentQuestion;
     int padding;
+    
     UILabel* blastOffTimeLabel;
     NSTimer* timer;
     int currSeconds;
@@ -76,10 +78,10 @@
     //
     // Spaceship window frame
     //
-    int spaceWindowSize = yHalfway - 2*padding; // TODO ask jo re this.. SCREEN_WIDTH-2*padding;
+    int spaceWindowSize = yHalfway; // - 2*padding;
     UIImageView* spaceWindowOutline = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"window_gray"]];
-    spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize - padding)/2, padding*2, spaceWindowSize, spaceWindowSize);
-    
+    spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize)/2, padding   , spaceWindowSize, spaceWindowSize);
+
     //
     // Satellite image
     //
@@ -95,7 +97,7 @@
     //
     // HINT Button
     //
-    int heightHintButton = 40;
+    int heightHintButton = 35;
     int widthHintButton = heightHintButton*2;
     int xPos = SCREEN_WIDTH/2 - widthHintButton/2;
     UIButton* hintButton = [[UIButton alloc] initWithFrame:CGRectMake(xPos, SCREEN_HEIGHT-heightHintButton-padding, widthHintButton, heightHintButton)];
@@ -109,18 +111,18 @@
     //
     // Answer Option Buttons
     //
-    int spaceForAnswerButtons = yHalfway - heightHintButton - 2*padding;
-    int heightOfAnswerOption = (spaceForAnswerButtons - (numberAnswerOptions+1)*padding) / numberAnswerOptions;
-    int widthOfAnswerOption = SCREEN_WIDTH - 2*padding;
+    int spaceForAnswerButtons = yHalfway - heightHintButton - padding;
+    int heightOfAnswerOption = (spaceForAnswerButtons - (numberAnswerOptions+3)*padding) / numberAnswerOptions;
+    int widthOfAnswerOption = SCREEN_WIDTH - 8*padding;
     
     //        NSLog(@"heightOfAnswerOption = %d, halfway Y %d, width = %f, height = %f", heightOfAnswerOption, yHalfway, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     answerOptionButtons = [@[] mutableCopy];
     for (int i=0; i<numberAnswerOptions; i++)
     {
-        int yPos = yHalfway + (i+1)*padding + i*heightOfAnswerOption;
-        //            NSLog(@"Drawing button %d at (%d, %d)", i+1, padding, yPos);
-        UIButton* answerOption = [[UIButton alloc] initWithFrame:CGRectMake(padding, yPos, widthOfAnswerOption, heightOfAnswerOption)];
+        int yPos = yHalfway + (i+3)*padding + i*heightOfAnswerOption;
+        //           NSLog(@"Drawing button %d at (%d, %d)", i+1, padding, yPos);
+        UIButton* answerOption = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-widthOfAnswerOption)/2, yPos, widthOfAnswerOption, heightOfAnswerOption)];
         answerOption.tag = 1;
         answerOption.backgroundColor = [UIColor grayColor];
         answerOption.layer.cornerRadius = 6; //answerOption.frame.size.width / 2.0;
@@ -159,6 +161,7 @@
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[randomIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
+    
     //
     //    for (UIButton* answerOptionButton in answerOptionButtons)
     //    {
