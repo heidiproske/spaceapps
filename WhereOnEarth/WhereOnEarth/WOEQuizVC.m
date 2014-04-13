@@ -12,6 +12,7 @@
 @implementation WOEQuizVC
 {
     UIView* splashView;
+    UIView* quizView;
     UIView* endView;
     UIImageView* satelliteImage;
     NSMutableArray* answerOptionButtons;
@@ -64,10 +65,13 @@
     NSLog(@"answer %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
 }
 
-- (void)startQuiz
+- (void)createQuiz
 {
     int numberAnswerOptions = 4;
     int yHalfway = SCREEN_HEIGHT / 2;
+    
+    quizView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    quizView.backgroundColor = [UIColor whiteColor];
     
     //
     // Spaceship window frame
@@ -82,11 +86,11 @@
     satelliteImage = [[UIImageView alloc] initWithFrame:CGRectMake(spaceWindowOutline.frame.origin.x + 10, spaceWindowOutline.frame.origin.y + 10, spaceWindowOutline.frame.size.width - 20, spaceWindowOutline.frame.size.height - 20)];
     satelliteImage.layer.cornerRadius = satelliteImage.frame.size.width / 2;
     satelliteImage.layer.masksToBounds = YES;
-    [self.view addSubview:satelliteImage];
+    [quizView addSubview:satelliteImage];
     
     satelliteImage.contentMode = UIViewContentModeScaleAspectFill;
     
-    [self.view addSubview:spaceWindowOutline];
+    [quizView addSubview:spaceWindowOutline];
     
     //
     // HINT Button
@@ -99,8 +103,8 @@
     [hintButton setTitle:@"Hint" forState:UIControlStateNormal];
     hintButton.titleLabel.textColor = [UIColor whiteColor];
     hintButton.layer.cornerRadius = 10; //hintButton.frame.size.width / 2.0;
-    [hintButton addTarget:self action:@selector(clickedHint) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:hintButton];
+    [hintButton addTarget:self action:@selector(showNextQuestion) forControlEvents:UIControlEventTouchUpInside];
+    [quizView addSubview:hintButton];
     
     //
     // Answer Option Buttons
@@ -121,7 +125,7 @@
         answerOption.backgroundColor = [UIColor grayColor];
         answerOption.layer.cornerRadius = 6; //answerOption.frame.size.width / 2.0;
         [answerOption addTarget:self action:@selector(checkAnswer:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:answerOption];
+        [quizView addSubview:answerOption];
         
         answerOptionButtons[[answerOptionButtons count]] = answerOption;
     }
@@ -240,7 +244,6 @@
 
 -(void)blastOffTimerFired
 {
-    NSLog(@"Timer fired");
     if(currSeconds>=0)
     {
         if(currSeconds==0)
@@ -255,11 +258,24 @@
     }
     else
     {
-        [splashView removeFromSuperview];
-        [self startQuiz];
         [timer invalidate];
+        [self createQuiz];
+        [self replaceView:splashView WithOtherView:quizView];
     }
 }
+
+-(void)replaceView:(UIView*)oldView WithOtherView:(UIView*)newView
+{
+    newView.alpha = 0;
+    [self.view addSubview:newView];
+    [oldView removeFromSuperview];
+    
+    [UIView animateWithDuration:0.2 animations:^{ //TODO does this actually look better? change the speed?
+        newView.alpha = 1;
+    }];
+}
+
+//TODO look up CGContextAddRect()
 
 - (void)shuffleQuizData
 {
