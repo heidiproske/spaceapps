@@ -191,8 +191,9 @@
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
     usedCityIndexes[[usedCityIndexes count]] = [NSNumber numberWithInt:correctIndex];
     
-    NSLog(@"At start usedCityIndexes=%@", usedCityIndexes);
-    
+//    NSLog(@"Storing correct answer %@ on button %d", )
+    NSLog(@"At start usedCityIndexes=%@, need to generate %d values", usedCityIndexes, [answerOptionButtons count]-[usedCityIndexes count]);
+
     for (int i=0; i<[answerOptionButtons count]; i++)
     {
         if (i != correctIndex) // don't want to overwrite a button's text if it's already associated
@@ -217,19 +218,21 @@
                     //update variable for while loop condition
                     currentTitle = [currentButton titleForState:UIControlStateNormal];
                     
-                    NSLog(@"Going to set title to %@, updated indexOfUsedCities to include %@", newTitle, randomIndex);
+                    NSLog(@"Updating button %d to set title to %@, updated indexOfUsedCities to include %@", i, newTitle, randomIndex);
                 }
-                else
-                {
-                    NSLog(@"apparently usedCityIndexes %@ already contains generated index %@", usedCityIndexes, randomIndex);
-                }
+//                else
+//                {
+//                    NSLog(@"apparently usedCityIndexes %@ already contains generated index %@", usedCityIndexes, randomIndex);
+//                }
             }
         }
-//        else
-//        {
-//            NSLog(@"Button %d contains the correct answer %@ so leaving alone!", correctIndex, cityName);
-//        }
+ 
+        else
+        {
+            NSLog(@"Button %d contains the correct answer %@ so leaving alone!", correctIndex, cityName);
+        }
     }
+ 
 }
 
 - (void)showStart
@@ -364,7 +367,7 @@
     float girlWidth = girl.size.width / ratio;
     UIImageView* cornerGirl = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - girlWidth, SCREEN_HEIGHT - girlHeight, girlWidth, girlHeight)];
     cornerGirl.image = girl;
-    [self.view addSubview:cornerGirl];
+    [webView addSubview:cornerGirl];
 }
 
 - (void)didReceiveMemoryWarning
