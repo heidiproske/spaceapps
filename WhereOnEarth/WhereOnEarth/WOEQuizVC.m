@@ -60,12 +60,12 @@
 
 - (void)clickedHint
 {
+    NSLog(@"Show hint for city %d", currentQuestion);
     NSLog(@"Show hint for cities %d", currentQuestion);
 }
 
 - (void)checkAnswer:(UIButton*)sender
 {
-    NSLog(@"answer %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
     // Reset all button background colors to default
     for (UIButton* currentButton in answerOptionButtons)
     {
@@ -177,7 +177,10 @@
     satelliteImage.image = cityImage;
     NSLog(@"updated image?!");
     
-    int randomIndex = 0;
+    for (int i=0; i<10; i++){
+        NSLog(@"%d", arc4random_uniform([cities count]));
+              
+    }
     int randomIndex = arc4random_uniform([cities count]);;
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[randomIndex]);
     correctAnswerButton.titleLabel.text = cityName;
@@ -306,6 +309,16 @@
     
     whiteScreenForData.backgroundColor = [UIColor whiteColor];
     [landedView addSubview:whiteScreenForData];
+    
+    NSString* cityName = [cities[currentQuestion][KEY_CITY] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString* wikiURL = [NSString stringWithFormat:@"https://en.wikipedia.org/wiki/%@", cityName];
+//    NSLog(@"Looking up WIKI %@", wikiURL);
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:whiteScreenForData.frame];
+    // Now load the URL and display
+    NSURL *url = [NSURL URLWithString:wikiURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+    [landedView addSubview:webView];
     
     // Add the girl in bottom right on top of all other views
     UIImage* girl = [UIImage imageNamed:@"Astrid"];
