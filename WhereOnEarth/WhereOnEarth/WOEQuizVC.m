@@ -31,8 +31,19 @@
         // Spaceship window frame
         //
         int spaceWindowSize = yHalfway - 2*padding; // TODO ask jo re this.. SCREEN_WIDTH-2*padding;
-        UIImageView* spaceWindowOutline = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"window.png"]];
+        UIImageView* spaceWindowOutline = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"window_gray"]];
         spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize - padding)/2, padding*2, spaceWindowSize, spaceWindowSize);
+        
+        //
+        // Satellite image
+        //
+        satelliteImage = [[UIImageView alloc] initWithFrame:CGRectMake(spaceWindowOutline.frame.origin.x + 10, spaceWindowOutline.frame.origin.y + 10, spaceWindowOutline.frame.size.width - 20, spaceWindowOutline.frame.size.height - 20)];
+        satelliteImage.layer.cornerRadius = satelliteImage.frame.size.width / 2;
+        satelliteImage.layer.masksToBounds = YES;
+        [self.view addSubview:satelliteImage];
+        
+        satelliteImage.contentMode = UIViewContentModeScaleAspectFill;
+        
         [self.view addSubview:spaceWindowOutline];
         
         //
@@ -78,7 +89,7 @@
         //
         cities = [WOESatelliteImageryRequest populateCities];
         NSLog(@"We have info about %d cities, and %d answerOptionButtons", (int)[cities count], (int)[answerOptionButtons count]);
-        currentQuestion = 0;
+        currentQuestion = -1;
     }
     return self;
 }
@@ -92,6 +103,39 @@
 - (void)checkAnswer:(UIButton*)sender
 {
     NSLog(@"answer button %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
+- (void)showNextQuestion
+{
+    if (++currentQuestion >= [cities count])
+    {
+        NSLog(@"you were quizzed on all %d cities!", [cities count]);
+        return;
+    }
+    
+    NSDictionary* cityInfo = cities[currentQuestion];
+    NSLog(@"showNextQuestion #%d", currentQuestion);
+    
+    NSString* cityName = [cityInfo objectForKey:KEY_CITY];
+    NSString* countryName = [cityInfo objectForKey:KEY_COUNTRY];
+    
+    NSLog(@"current city %@, %@", cityName, countryName);
+    
+    UIImage* cityImage = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
+    
+    satelliteImage.image = cityImage;
+    NSLog(@"updated image?!");
+    
+    int randomIndex = 0;
+    UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[randomIndex]);
+    correctAnswerButton.titleLabel.text = cityName;
+    [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
+    //
+    //    for (UIButton* answerOptionButton in answerOptionButtons)
+    //    {
+    //       int index = [answerOptionButtons indexOfObject:answerOptionButtons];
+    //    }
+    //    NSLog(@"answer %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
+    //    // Do any additional setup after loading the view.
+    
 }
 
 - (void)viewDidLoad

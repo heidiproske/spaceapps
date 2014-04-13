@@ -10,6 +10,60 @@
 
 @implementation WOESatelliteImageryRequest
 
++ (UIImage*)getImageForCity:(NSString *)cityName InCountry:(NSString*)countryName
+{
+    //    NSString* myKey = @"AIzaSyDgXPabFl8HDR87DT6K5ry8rMQxlAD6onU";
+    //    With a developer API key
+    //    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=%@&sensor=false&key=%@",searchString,myKey];
+    
+    //
+    //send web request to retrieve latitude and longitude from Google API
+    //
+    
+    NSString *searchString = [NSString stringWithFormat:@"%@,+%@",
+                              [cityName stringByReplacingOccurrencesOfString:@" " withString:@"+" ],
+                              [countryName stringByReplacingOccurrencesOfString:@" " withString:@"+" ]];
+    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?address=%@&sensor=false",searchString];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSLog(@"Trying to connect to %@", urlString);
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSError *requestError = nil;
+    NSURLResponse *response = nil;
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&requestError];
+    
+    // Parse with JSON
+    NSError *jsonError = nil; //TODO note how we do &jsonError on next line because that method will update it
+    NSDictionary *locationResults = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&jsonError];
+    //    NSLog(@"JSON: %@", locationResults);
+    if (locationResults[@"results"] != nil)
+    {
+        NSDictionary* results = (NSDictionary *)((NSArray*)locationResults[@"results"][0]);
+        if (results[@"geometry"] != nil)
+        {
+            NSDictionary* location = (NSDictionary *)results[@"geometry"][@"location"];
+            NSString* latitude = location[@"lat"];
+            NSString* longitude = location[@"lng"];
+            
+            return [self getImageForCityWithLatitude:latitude AndLongitude:longitude];
+        }
+    }
+    
+    //    NSLog(@"UHOH couldn't find details for %@. Error: %@", cityName, locationResults);
+    return nil;
+}
+
++ (UIImage *)getImageForCityWithLatitude:(NSString *)latitude AndLongitude:(NSString *)longitude
+{
+    // E.g. URL http://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=400x400&sensor=false
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?center=%@,%@&zoom=12&size=400x400&sensor=false",latitude, longitude];
+    
+    NSLog(@"Getting image from %@",urlString);
+    NSURL* imageURL = [NSURL URLWithString:urlString];
+    NSData* imageData = [NSData dataWithContentsOfURL:imageURL];
+    return [UIImage imageWithData:imageData];
+}
+
 + (NSMutableArray*)populateCities
 {
     //

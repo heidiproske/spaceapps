@@ -21,6 +21,7 @@
 		91931A3318F9893900188F5A /* WhereOnEarthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A3218F9893900188F5A /* WhereOnEarthTests.m */; };
 		91931A4018F98BB700188F5A /* WOEQuizVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A3F18F98BB700188F5A /* WOEQuizVC.m */; };
 		91931A4318F98C7600188F5A /* WOESatelliteImageryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 91931A4218F98C7600188F5A /* WOESatelliteImageryRequest.m */; };
+		91931A5518F9E48F00188F5A /* window_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 91931A5418F9E48F00188F5A /* window_gray.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		91931A3F18F98BB700188F5A /* WOEQuizVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOEQuizVC.m; sourceTree = "<group>"; };
 		91931A4118F98C7600188F5A /* WOESatelliteImageryRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WOESatelliteImageryRequest.h; sourceTree = "<group>"; };
 		91931A4218F98C7600188F5A /* WOESatelliteImageryRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WOESatelliteImageryRequest.m; sourceTree = "<group>"; };
+		91931A5418F9E48F00188F5A /* window_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = window_gray.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 		91931A1318F9893900188F5A /* WhereOnEarth */ = {
 			isa = PBXGroup;
 			children = (
+				91931A4718F9A4FF00188F5A /* images */,
 				91931A3D18F98BA000188F5A /* Random */,
 				91931A3C18F9899600188F5A /* Controllers */,
 				91931A1C18F9893900188F5A /* WOEAppDelegate.h */,
@@ -168,6 +171,14 @@
 				91931A4218F98C7600188F5A /* WOESatelliteImageryRequest.m */,
 			);
 			name = Random;
+			sourceTree = "<group>";
+		};
+		91931A4718F9A4FF00188F5A /* images */ = {
+			isa = PBXGroup;
+			children = (
+				91931A5418F9E48F00188F5A /* window_gray.png */,
+			);
+			name = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				91931A1818F9893900188F5A /* InfoPlist.strings in Resources */,
+				91931A5518F9E48F00188F5A /* window_gray.png in Resources */,
 				91931A2018F9893900188F5A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
