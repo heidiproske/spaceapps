@@ -155,7 +155,7 @@
     
     if (++currentQuestion >= [cities count])
     {
-        NSLog(@"you were quizzed on all %d cities!", [cities count]);
+        NSLog(@"User quizzed on all %d cities, going to end screen!", [cities count]);
         
         [self createEndView];
         [self fadeInView:endView];
@@ -164,29 +164,26 @@
         return;
     }
     
+    //
+    // Update satellite image for current city
+    //
     NSDictionary* cityInfo = cities[currentQuestion];
     NSString* cityName = [cityInfo objectForKey:KEY_CITY];
     NSString* countryName = [cityInfo objectForKey:KEY_COUNTRY];
 //    NSLog(@"current city %@, %@", cityName, countryName);
-    
     UIImage* cityImage = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
     satelliteImage.image = cityImage;
-    for (int i=0; i<10; i++){
-        NSLog(@"%d", arc4random_uniform([cities count]));
-              
+
+    // Clear out old answers
+    for (int i=0; i<[answerOptionButtons count]; i++)
+    {
+        [answerOptionButtons[i] setTitle:@"" forState:UIControlStateNormal];
     }
     int correctIndex = arc4random_uniform([cities count]);
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[correctIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
     
-    //
-    //    for (UIButton* answerOptionButton in answerOptionButtons)
-    //    {
-    //       int index = [answerOptionButtons indexOfObject:answerOptionButtons];
-    //    }
-    //    NSLog(@"answer %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
-    //    // Do any additional setup after loading the view.
 }
 
 - (void)showStart
