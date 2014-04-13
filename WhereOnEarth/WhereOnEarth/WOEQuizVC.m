@@ -196,11 +196,15 @@
 //    NSLog(@"current city %@, %@", cityName, countryName);
     
     NSDictionary* returnResult = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
-
+    NSLog(@"hello1 received %@", returnResult[KEY_LATITUDE]);
     cityInfo[KEY_LATITUDE] = returnResult[KEY_LATITUDE];
+    NSLog(@"so lat = %@", cityInfo[KEY_LATITUDE]);
     cityInfo[KEY_LONGITUDE] = returnResult[KEY_LONGITUDE];
+    NSLog(@"so lon = %@", cityInfo[KEY_LONGITUDE]);
+
 //    cityInfo[KEY_IMAGE] = returnResult[KEY_IMAGE];
     UIImage* cityImage = returnResult[KEY_IMAGE];
+    NSLog(@"hello2");
     satelliteImage.image = cityImage;
 
     // Clear out old answers

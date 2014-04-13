@@ -74,10 +74,10 @@
     // Prepare for Quiz
     //
     return [@[
-              @{KEY_CITY : @"Durban", KEY_COUNTRY : @"South Africa"},
-              @{KEY_CITY : @"New York", KEY_COUNTRY : @"USA"},
-              @{KEY_CITY : @"Paris", KEY_COUNTRY : @"France"},
-              @{KEY_CITY : @"Hong Kong", KEY_COUNTRY : @"China"},
+              [@{KEY_CITY : @"Durban", KEY_COUNTRY : @"South Africa"} mutableCopy] ,
+              [@{KEY_CITY : @"New York", KEY_COUNTRY : @"USA"} mutableCopy],
+              [@{KEY_CITY : @"Paris", KEY_COUNTRY : @"France"} mutableCopy],
+              [@{KEY_CITY : @"Hong Kong", KEY_COUNTRY : @"China"} mutableCopy]
               //       @{KEY_CITY : @"Berlin", KEY_COUNTRY : @"Germany"},
               //       @{KEY_CITY : @"New York", KEY_COUNTRY : @"USA"},
               //       @{KEY_CITY : @"Miami", KEY_COUNTRY : @"USA"},
