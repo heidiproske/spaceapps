@@ -88,6 +88,7 @@
         // Prepare for Quiz
         //
         cities = [WOESatelliteImageryRequest populateCities];
+        [self shuffle];
         NSLog(@"We have info about %d cities, and %d answerOptionButtons", (int)[cities count], (int)[answerOptionButtons count]);
         currentQuestion = -1;
     }
@@ -154,6 +155,19 @@
 - (BOOL) prefersStatusBarHidden
 {
     return YES;
+}
+
+- (void)shuffle
+{
+    NSLog(@"Before: %@", cities);
+    NSUInteger count = [cities count];
+    for (NSUInteger i = 0; i < count; ++i) {
+        //Select a random element between i and end of array to swap with.
+       NSInteger nElements = count - i;
+       NSInteger n = arc4random_uniform(nElements) + i;
+       [cities exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
+    NSLog(@"After: %@", cities);
 }
 
 @end

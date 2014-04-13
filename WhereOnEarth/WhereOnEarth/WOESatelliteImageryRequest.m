@@ -70,7 +70,7 @@
     // Prepare for Quiz
     //
     return [@[
-              @{KEY_CITY : @"Durban"", KEY_COUNTRY : "@"South Africa"},
+              @{KEY_CITY : @"Durban", KEY_COUNTRY : @"South Africa"},
               @{KEY_CITY : @"New York", KEY_COUNTRY : @"USA"},
               @{KEY_CITY : @"Paris", KEY_COUNTRY : @"France"},
               //       @{KEY_CITY : @"Hong Kong", KEY_COUNTRY : @"China"},
