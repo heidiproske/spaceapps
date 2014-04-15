@@ -49,11 +49,11 @@
 
 - (void)playGame
 {
+    currentQuestion = -1;
     if (endView != nil)
     {
         [endView removeFromSuperview];
     }
-    currentQuestion = -1;
     [self showStart];
 }
 
@@ -92,7 +92,7 @@
     }
 }
 
-- (void)createQuiz
+- (void)createQuizView
 {
     int numberAnswerOptions = 4;
     int yHalfway = SCREEN_HEIGHT / 2;
@@ -105,7 +105,7 @@
     //
     int spaceWindowSize = yHalfway; // - 2*padding;
     UIImageView* spaceWindowOutline = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"window_gray"]];
-    spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize)/2, padding   , spaceWindowSize, spaceWindowSize);
+    spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize)/2, padding, spaceWindowSize, spaceWindowSize);
     
     //
     // Show current question number, so user has some indication of progress
@@ -121,8 +121,7 @@
     satelliteImage.layer.masksToBounds = YES;
     [quizView addSubview:satelliteImage];
     
-    satelliteImage.contentMode = UIViewContentModeScaleAspectFill;
-    
+    // Add the window frame ONTOP of the actual satellite image
     [quizView addSubview:spaceWindowOutline];
     
     //
@@ -192,9 +191,9 @@
     NSDictionary* returnResult = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
     cityInfo[KEY_LATITUDE] = returnResult[KEY_LATITUDE];
     cityInfo[KEY_LONGITUDE] = returnResult[KEY_LONGITUDE];
-    UIImage* cityImage = returnResult[KEY_IMAGE];
-    satelliteImage.image = cityImage;
     
+    satelliteImage.image = returnResult[KEY_IMAGE];
+
     //
     // Now populate potential answers
     //
@@ -262,6 +261,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    [self createQuizView];
     [self createLandedView];
 }
 
@@ -395,7 +395,6 @@
     else
     {
         [timer invalidate];
-        [self createQuiz];
         [splashView removeFromSuperview];
         [self fadeInView:quizView];
         [self showNextQuestion];
