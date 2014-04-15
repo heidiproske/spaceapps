@@ -23,6 +23,7 @@
     int currentQuestion;
     int padding;
     
+    UIWebView* webView;
     UILabel* statusLabel;
     UILabel* blastOffTimeLabel;
     NSTimer* timer;
@@ -83,7 +84,7 @@
     NSLog(@"answer button %d was chosen: i.e. %@", (int)sender.tag, sender.titleLabel.text);
     if ([sender.titleLabel.text isEqualToString:cities[currentQuestion][KEY_CITY]])
     {
-        [self showLandedView];
+        [self updateLandedViewWithCityWebData];
     }
     else
     {
@@ -261,6 +262,7 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    [self createLandedView];
 }
 
 - (void)createEndView
@@ -290,11 +292,23 @@
     [endView addSubview:playAgainButton];
 }
 
-- (void)showLandedView
+
+- (void)updateLandedViewWithCityWebData
+{
+    [self fadeInView:landedView];
+    NSString* cityName = [cities[currentQuestion][KEY_CITY] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString* wikiURL = [NSString stringWithFormat:@"https://en.wikipedia.org/wiki/%@", cityName];
+    NSLog(@"Looking up WIKI %@", wikiURL);
+    // Now load the URL and display
+    NSURL *url = [NSURL URLWithString:wikiURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+}
+
+- (void)createLandedView
 {
     landedView = [[UIView alloc] initWithFrame:self.view.frame];
     landedView.backgroundColor = COLOR_SKY_BLUE;
-    [self.view addSubview:landedView];
     
     CGRect whiteFrame = landedView.frame;
     UILabel* congratsLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, whiteFrame.size.width - 2*padding, 2*padding)];
@@ -340,14 +354,7 @@
     whiteScreenForData.backgroundColor = [UIColor whiteColor];
     [landedView addSubview:whiteScreenForData];
     
-    NSString* cityName = [cities[currentQuestion][KEY_CITY] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-    NSString* wikiURL = [NSString stringWithFormat:@"https://en.wikipedia.org/wiki/%@", cityName];
-//    NSLog(@"Looking up WIKI %@", wikiURL);
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:whiteScreenForData.frame];
-    // Now load the URL and display
-    NSURL *url = [NSURL URLWithString:wikiURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:request];
+    webView = [[UIWebView alloc] initWithFrame:whiteScreenForData.frame];
     [landedView addSubview:webView];
     
     // Add the girl in bottom right on top of all other views
