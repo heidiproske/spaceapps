@@ -23,6 +23,7 @@
     int currentQuestion;
     int padding;
     
+    UIButton* nextFlightBtn;
     UIWebView* webView;
     UILabel* statusLabel;
     UILabel* blastOffTimeLabel;
@@ -51,12 +52,14 @@
 {
     currentQuestion = -1;
     currSeconds=3;
-    
+    blastOffTimeLabel.text = @""; // make sure it starts off blank
     timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blastOffTimerFired) userInfo:nil repeats:YES];
     if (endView != nil)
     {
         [endView removeFromSuperview];
     }
+    
+    [self.view addSubview:splashView];
 }
 
 - (void)clickedHint
@@ -173,7 +176,6 @@
     {
         NSLog(@"User quizzed on all %d cities, going to end screen!", [cities count]);
         
-        [self createEndView];
         [self fadeInView:endView];
         [quizView removeFromSuperview];
         
@@ -208,6 +210,7 @@
     
     NSMutableArray* redHerringAnswers = [NSMutableArray arrayWithArray:cities];
     [redHerringAnswers removeObject:cities[currentQuestion]]; // get rid of current answers
+    
     [self shuffleQuizData:redHerringAnswers];
     
     int redHerringIndex = 0;
@@ -231,7 +234,6 @@
 {
     splashView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     splashView.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:splashView];
     
     UILabel* gameName = [[UILabel alloc] initWithFrame:CGRectMake(padding, 2*padding, splashView.frame.size.width - 2*padding, 3*padding)];
     gameName.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:30];
@@ -259,20 +261,28 @@
 {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
+    // Create all our UIViews that our ViewController switches between
     
     [self createStartView];
     [self createQuizView];
     [self createLandedView];
+    [self createEndView];
     
-    [self playGame];
+    NSLog(@"ok we have %d", [answerOptionButtons count]);
+    if ([cities count] < [answerOptionButtons count])
+    {
+        NSLog(@"We need at least %d cities in our database!", [answerOptionButtons count]);
+    }
+    else
+    {
+        [self playGame];
+    }
 }
 
 - (void)createEndView
 {
     endView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [self.view addSubview:endView];
-    
+     
     UIImage* theEnd = [UIImage imageNamed:@"ending"];
     
     float ratio = (SCREEN_WIDTH * 0.0115);
@@ -298,14 +308,26 @@
 
 - (void)updateLandedViewWithCityWebData
 {
+    // Clear the previous city
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    
+    // show the 'details of city from web' view (aka landedView)
     [self fadeInView:landedView];
+    
     NSString* cityName = [cities[currentQuestion][KEY_CITY] stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     NSString* wikiURL = [NSString stringWithFormat:@"https://en.wikipedia.org/wiki/%@", cityName];
     NSLog(@"Looking up WIKI %@", wikiURL);
     // Now load the URL and display
-    NSURL *url = [NSURL URLWithString:wikiURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wikiURL]];
     [webView loadRequest:request];
+    
+    if (currentQuestion < [cities count] - 1)
+    {
+        [nextFlightBtn setTitle:@"Next Flight" forState:UIControlStateNormal];
+    } else
+    {
+        [nextFlightBtn setTitle:@"Finish" forState:UIControlStateNormal];
+    }
 }
 
 - (void)createLandedView
@@ -333,17 +355,10 @@
     blackBorder.backgroundColor = [UIColor blackColor];
     [landedView addSubview:blackBorder];
     
-    UIButton* nextFlightBtn = [[UIButton alloc] initWithFrame:CGRectMake(padding/2, greenGrass.frame.origin.y-1.2*padding, 100, 35)];
+    nextFlightBtn = [[UIButton alloc] initWithFrame:CGRectMake(padding/2, greenGrass.frame.origin.y-1.2*padding, 100, 35)];
     nextFlightBtn.backgroundColor = [UIColor redColor];
     nextFlightBtn.layer.cornerRadius = 10; //nextFlightBtn.frame.size.width / 2.0;
     nextFlightBtn.titleLabel.textColor = [UIColor whiteColor]; //TODO his screengrab was black
-    if (currentQuestion < [cities count] - 1)
-    {
-        [nextFlightBtn setTitle:@"Next Flight" forState:UIControlStateNormal];
-    } else
-    {
-        [nextFlightBtn setTitle:@"Finish" forState:UIControlStateNormal];
-    }
     [nextFlightBtn addTarget:self action:@selector(showNextQuestion) forControlEvents:UIControlEventTouchUpInside];
     [landedView addSubview:nextFlightBtn];
     
@@ -362,10 +377,10 @@
     
     // Add the girl in bottom right on top of all other views
     UIImage* girl = [UIImage imageNamed:@"Astrid"];
-    float ratio = (SCREEN_WIDTH * 0.024);
+    float ratio = (SCREEN_WIDTH * 0.03);
     float girlHeight = girl.size.height / ratio;
     float girlWidth = girl.size.width / ratio;
-    UIImageView* cornerGirl = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - girlWidth, SCREEN_HEIGHT - girlHeight, girlWidth, girlHeight)];
+    UIImageView* cornerGirl = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - girlWidth - 7, SCREEN_HEIGHT - girlHeight - 40, girlWidth, girlHeight)];
     cornerGirl.image = girl;
     [webView addSubview:cornerGirl];
 }
