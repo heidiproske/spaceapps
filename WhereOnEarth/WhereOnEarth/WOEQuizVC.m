@@ -23,6 +23,7 @@
     int currentQuestion;
     int padding;
     
+    UILabel* statusLabel;
     UILabel* blastOffTimeLabel;
     NSTimer* timer;
     int currSeconds;
@@ -106,7 +107,10 @@
     spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize)/2, padding   , spaceWindowSize, spaceWindowSize);
     
     //
+    // Show current question number, so user has some indication of progress
     //
+    statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, SCREEN_WIDTH/5, 20)];
+    [quizView addSubview:statusLabel];
     
     //
     // Satellite image
@@ -174,6 +178,8 @@
         return;
     }
     
+    statusLabel.text = [NSString stringWithFormat:@"%d of %d", currentQuestion+1, [cities count]];
+    
     //
     // Update satellite image for current city
     //
@@ -191,7 +197,8 @@
     //
     // Now populate potential answers
     //
-    int correctIndex = arc4random_uniform([cities count]);
+    int correctIndex = arc4random_uniform([answerOptionButtons count]);
+    
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[correctIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
