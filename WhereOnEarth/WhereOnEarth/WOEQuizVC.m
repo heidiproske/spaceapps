@@ -50,11 +50,13 @@
 - (void)playGame
 {
     currentQuestion = -1;
+    currSeconds=3;
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blastOffTimerFired) userInfo:nil repeats:YES];
     if (endView != nil)
     {
         [endView removeFromSuperview];
     }
-    [self showStart];
 }
 
 - (void)clickedHint
@@ -225,7 +227,7 @@
     }
 }
 
-- (void)showStart
+- (void)createStartView
 {
     splashView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     splashView.backgroundColor = [UIColor blackColor];
@@ -250,10 +252,7 @@
     blastOffTimeLabel.textColor = [UIColor whiteColor];
     blastOffTimeLabel.textAlignment = UITextAlignmentCenter;
     blastOffTimeLabel.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:22];
-    currSeconds=3;
     [splashView addSubview:blastOffTimeLabel];
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(blastOffTimerFired) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidLoad
@@ -261,8 +260,12 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
+    
+    [self createStartView];
     [self createQuizView];
     [self createLandedView];
+    
+    [self playGame];
 }
 
 - (void)createEndView
@@ -395,8 +398,8 @@
     else
     {
         [timer invalidate];
-        [splashView removeFromSuperview];
         [self fadeInView:quizView];
+        [splashView removeFromSuperview];
         [self showNextQuestion];
     }
 }
