@@ -12,10 +12,6 @@
 
 + (NSDictionary*)getImageForCity:(NSString *)cityName InCountry:(NSString*)countryName
 {
-    //    NSString* myKey = @"AIzaSyDgXPabFl8HDR87DT6K5ry8rMQxlAD6onU";
-    //    With a developer API key
-    //    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=%@&sensor=false&key=%@",searchString,myKey];
-    
     //
     //send web request to retrieve latitude and longitude from Google API
     //
@@ -25,7 +21,7 @@
                               [countryName stringByReplacingOccurrencesOfString:@" " withString:@"+" ]];
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/geocode/json?address=%@&sensor=false",searchString];
     NSURL *url = [NSURL URLWithString:urlString];
-    NSLog(@"Trying to connect to %@", urlString);
+    //    NSLog(@"Trying to connect to %@", urlString);
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSError *requestError = nil;
@@ -62,7 +58,7 @@
     // E.g. URL http://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=400x400&sensor=false
     NSString *urlString = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/staticmap?center=%@,%@&zoom=10&size=300x300&sensor=false&maptype=satellite",latitude, longitude];
     
-//    NSLog(@"Getting image from %@",urlString);
+    //    NSLog(@"Getting image from %@",urlString);
     NSURL* imageURL = [NSURL URLWithString:urlString];
     NSData* imageData = [NSData dataWithContentsOfURL:imageURL];
     return [UIImage imageWithData:imageData];

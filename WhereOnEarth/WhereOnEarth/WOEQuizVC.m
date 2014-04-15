@@ -40,9 +40,7 @@
         //
         cities = [WOESatelliteImageryRequest populateCities];
         [self shuffleQuizData:cities];
-        NSLog(@"We have info about %d cities, and %d answerOptionButtons", (int)[cities count], (int)[answerOptionButtons count]);
-        
-        [self playGame];
+        NSLog(@"We have info about %d cities", (int)[cities count]);
     }
     return self;
 }
@@ -51,7 +49,6 @@
 {
     if (endView != nil)
     {
-        NSLog(@"We have a non nil endView");
         [endView removeFromSuperview];
     }
     currentQuestion = -1;
@@ -109,15 +106,7 @@
     spaceWindowOutline.frame = CGRectMake((SCREEN_WIDTH - spaceWindowSize)/2, padding   , spaceWindowSize, spaceWindowSize);
     
     //
-    // Cockpit
     //
-//    UIImage* cockpitImage = [UIImage imageNamed:@"cockpit"];
-//    float ratio = (SCREEN_WIDTH * 0.0115);
-//    float cockpitHeight = cockpitImage.size.height / ratio;
-//    float cockpitWidth = cockpitImage.size.width / ratio;
-//    UIImageView* cockpitView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cockpitWidth, cockpitHeight)];
-//    cockpitView.image = cockpitImage;
-//    [quizView addSubview:cockpitView];
     
     //
     // Satellite image
@@ -161,8 +150,6 @@
         //           NSLog(@"Drawing button %d at (%d, %d)", i+1, padding, yPos);
         UIButton* answerOption = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-widthOfAnswerOption)/2, yPos, widthOfAnswerOption, heightOfAnswerOption)];
         answerOption.tag = 1;
-//        UIImage* buttonShape = [UIImage imageNamed:[NSString stringWithFormat:@"answer%d",(i+1)]];
-//        [answerOption setImage:buttonShape forState:UIControlStateNormal];
         answerOption.backgroundColor = ANSWER_BUTTON_COLOR;
         answerOption.layer.cornerRadius = 6; //answerOption.frame.size.width / 2.0;
         [answerOption addTarget:self action:@selector(checkAnswer:) forControlEvents:UIControlEventTouchUpInside];
@@ -193,25 +180,13 @@
     NSMutableDictionary* cityInfo = cities[currentQuestion];
     NSString* cityName = cityInfo[KEY_CITY];
     NSString* countryName = cityInfo[KEY_COUNTRY];
-//    NSLog(@"current city %@, %@", cityName, countryName);
+    NSLog(@"current city %@, %@", cityName, countryName);
     
     NSDictionary* returnResult = [WOESatelliteImageryRequest getImageForCity:cityName InCountry:countryName];
-    NSLog(@"hello1 received %@", returnResult[KEY_LATITUDE]);
     cityInfo[KEY_LATITUDE] = returnResult[KEY_LATITUDE];
-    NSLog(@"so lat = %@", cityInfo[KEY_LATITUDE]);
     cityInfo[KEY_LONGITUDE] = returnResult[KEY_LONGITUDE];
-    NSLog(@"so lon = %@", cityInfo[KEY_LONGITUDE]);
-
-//    cityInfo[KEY_IMAGE] = returnResult[KEY_IMAGE];
     UIImage* cityImage = returnResult[KEY_IMAGE];
-    NSLog(@"hello2");
     satelliteImage.image = cityImage;
-
-    // Clear out old answers
-    for (int i=0; i<[answerOptionButtons count]; i++)
-    {
-        [answerOptionButtons[i] setTitle:@"" forState:UIControlStateNormal];
-    }
     
     //
     // Now populate potential answers
@@ -220,24 +195,20 @@
     UIButton* correctAnswerButton = (UIButton*)(answerOptionButtons[correctIndex]);
     correctAnswerButton.titleLabel.text = cityName;
     [correctAnswerButton setTitle:cityName forState:UIControlStateNormal];
+    //    NSLog(@"Storing correct answer %@ on button %d", )
     
     NSMutableArray* redHerringAnswers = [NSMutableArray arrayWithArray:cities];
     [redHerringAnswers removeObject:cities[currentQuestion]]; // get rid of current answers
     [self shuffleQuizData:redHerringAnswers];
     
-//    NSLog(@"Storing correct answer %@ on button %d", )
-//    NSLog(@"At start usedCityIndexes=%@, need to generate %d values", usedCityIndexes, [answerOptionButtons count]-[usedCityIndexes count]);
-
     int redHerringIndex = 0;
     for (int i=0; i<[answerOptionButtons count]; i++)
     {
         if (i != correctIndex) // don't want to overwrite a button's text if it's already associated
         {
             UIButton* currentButton = answerOptionButtons[i];
-            NSLog(@"Considering button %d", i);
             NSString* newTitle = redHerringAnswers[redHerringIndex++][KEY_CITY];
             [currentButton setTitle:newTitle forState:UIControlStateNormal];
-            //update variable for while loop condition
             NSLog(@"Updating button %d to set title to %@", i, newTitle);
         }
 //        else
@@ -422,7 +393,7 @@
     newView.alpha = 0;
     [self.view addSubview:newView];
     
-    [UIView animateWithDuration:0.2 animations:^{ //TODO does this actually look better? change the speed?
+    [UIView animateWithDuration:0.2 animations:^{
         newView.alpha = 1;
     }];
 }
